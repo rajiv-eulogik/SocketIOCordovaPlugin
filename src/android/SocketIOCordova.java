@@ -1,4 +1,4 @@
-package cordova-plugin-agora-sdk;
+package cordova.plugin.agora.sdk;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
@@ -24,13 +24,13 @@ public class SocketIOCordova extends CordovaPlugin {
         }
         else if (action.equals("connectSocket")) {
             String uri = args.getString(0);
-            this.connectSocket(uri, callbackContext)
+            this.connectSocket(uri, callbackContext);
             return true;
         }
         return false;
     }
 
-    private connectSocket(String uri, CallbackContext callbackContext) {
+    private void connectSocket(String uri, CallbackContext callbackContext) {
         if(uri != null && uri.length > 0) {
             Socket socket = IO.socket(uri); //CONNECTION MADE TO SOCKET SERVER
             callbackContext.success(socket);
