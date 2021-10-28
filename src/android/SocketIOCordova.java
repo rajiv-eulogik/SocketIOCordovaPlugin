@@ -30,8 +30,9 @@ public class SocketIOCordova extends CordovaPlugin {
         return false;
     }
 
-    private void connectSocket(Uri uri, CallbackContext callbackContext) {
-        if(uri != null) {
+    private void connectSocket(String url, CallbackContext callbackContext) {
+        if(url != null) {
+            URI uri = URI.create(url);
             Socket socket = IO.socket(uri); //CONNECTION MADE TO SOCKET SERVER
             callbackContext.success(socket.toString());
         }
