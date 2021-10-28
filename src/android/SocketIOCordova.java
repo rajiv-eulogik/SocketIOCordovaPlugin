@@ -33,7 +33,7 @@ public class SocketIOCordova extends CordovaPlugin {
     private void connectSocket(String uri, CallbackContext callbackContext) {
         if(uri != null && uri.length > 0) {
             Socket socket = IO.socket(uri); //CONNECTION MADE TO SOCKET SERVER
-            callbackContext.success(socket.toString(0)));
+            callbackContext.success(socket.toString(0));
         }
         else {
             callbackContext.error("Expecting an URI");
