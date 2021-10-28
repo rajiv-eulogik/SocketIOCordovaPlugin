@@ -1,0 +1,14 @@
+{
+  "name": "socketio-cordova",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova-plugin-agora-sdk",
+    "platforms": []
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "logR - Rajiv Ranjan",
+  "license": "ISC"
+}
