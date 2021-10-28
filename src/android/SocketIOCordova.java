@@ -36,7 +36,7 @@ public class SocketIOCordova extends CordovaPlugin {
             callbackContext.success(socket);
         }
         else {
-            callbackContext.error('Expecting an URI')
+            callbackContext.error("Expecting an URI");
         }
     } 
 
