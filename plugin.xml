@@ -6,7 +6,7 @@
 	</js-module>
 	<platform name="android">
 		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
-		<source-file src="src/android/SocketIOCordova.java" target-dir="src/cordova-plugin-agora-sdk/SocketIOCordova" />
+		<source-file src="src/android/SocketIOCordova.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="SocketIOCordova">
 				<param name="android-package" value="cordova.plugin.agora.sdk.SocketIOCordova" />
