@@ -2,7 +2,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-agora-sdk" version="0.0.1">
 	<name>SocketIOCordova</name>
 	<js-module name="SocketIOCordova" src="www/SocketIOCordova.js">
-		<clobbers target="cordova.plugins.SocketIOCordova" />
+		<clobbers target="SocketIOCordova" />
 	</js-module>
 	<platform name="android">
 		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
