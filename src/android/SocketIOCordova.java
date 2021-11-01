@@ -7,6 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.net.Uri;
+
+
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
@@ -32,7 +35,7 @@ public class SocketIOCordova extends CordovaPlugin {
 
     private void connectSocket(String url, CallbackContext callbackContext) {
         if(url != null) {
-            URI uri = URI.create(url);
+            Uri uri = Uri.parse(url);
             Socket socket = IO.socket(uri); //CONNECTION MADE TO SOCKET SERVER
             callbackContext.success(socket.toString());
         }
