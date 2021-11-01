@@ -49,6 +49,7 @@ public class SocketIOCordova extends CordovaPlugin {
         // Context context = cordova.getActivity().getApplicationContext();
         if (action.equals("connectSocket")) {
             String uri = args.getString(0);
+            Log.d("URL----: " + uri);
             this.connectSocket(uri, callbackContext);
             return true;
         }
