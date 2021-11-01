@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.net.Uri;
+import java.net.URISyntaxException;
 
 
 import io.socket.client.IO;
