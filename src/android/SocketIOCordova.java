@@ -25,19 +25,9 @@ import io.socket.client.Socket;
  * This class echoes a string called from JavaScript.
  */
 public class SocketIOCordova extends CordovaPlugin {
-    // private Socket mSocket;
-    // {
-    //     try {
-    //         mSocket = IO.socket("ws://192.168.1.2:3004/");
-    //     } catch (URISyntaxException e) {
-    //         throw new RuntimeException(e);
-    //     }
-    // }
+    private Socket socket;
 
-    // public Socket getSocket() {
-    //     return mSocket;
-    // }
-    
+   
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -49,7 +39,7 @@ public class SocketIOCordova extends CordovaPlugin {
         // Context context = cordova.getActivity().getApplicationContext();
         if (action.equals("connectSocket")) {
             String uri = args.getString(0);
-            Log.d("URL----: " + uri);
+            Log.d("URL----: ", uri);
             this.connectSocket(uri, callbackContext);
             return true;
         }
@@ -62,20 +52,20 @@ public class SocketIOCordova extends CordovaPlugin {
     // }
 
     private void connectSocket(String url, CallbackContext callbackContext) {
-        // Socket webSockets = this.getSocket();
-        // Log.d("URL: ", webSockets.toString());
-        // callbackContext.success(webSockets.toString());
-        callbackContext.success("Hello world");
-        // try {
-        //     if(url != null) {
-                
-        //     }
-        //     else {
-        //         callbackContext.error("Expecting an URI");
-        //     }
-        // }
-        // catch (Exception e) {
-        //     callbackContext.error("Error: " + e.getMessage());
-        // }
+        if(url != null) {
+            try {
+                socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+            }
+            catch(URISyntaxException e) {
+                callbackContext.error("Expecting an URI:" + e);
+            }
+            socket.connect();
+            callbackContext.success(socket.toString());
+            return true;
+        }
+        else {
+            callbackContext.error("Expecting an URI");
+            return false;
+        }
     }
 }
