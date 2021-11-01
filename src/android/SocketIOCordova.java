@@ -41,12 +41,17 @@ public class SocketIOCordova extends CordovaPlugin {
             try {
                 socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
             }
-            catch(URISyntaxException e) {}
+            catch(URISyntaxException e) {
+                callbackContext.error("Expecting an URI:" + e);
+            return false;
+            }
             socket.connect();
             callbackContext.success(socket.toString());
+            return true;
         }
         else {
             callbackContext.error("Expecting an URI");
+            return false;
         }
     } 
 
