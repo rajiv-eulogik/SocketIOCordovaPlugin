@@ -2,6 +2,7 @@ package cordova.plugin.agora.sdk;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +47,7 @@ public class SocketIOCordova extends CordovaPlugin {
                     callbackContext.error("Expecting an URI:" + e);
                 }
                 socket.connect();
-                callbackContext.success(socket.toString());
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.status.OK, socket));
                 return true;
             }
             else {
