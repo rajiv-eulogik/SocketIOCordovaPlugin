@@ -20,7 +20,7 @@ import io.socket.client.Socket;
  * This class echoes a string called from JavaScript.
  */
 public class SocketIOCordova extends CordovaPlugin {
-    private Socket webSockets;
+    private Socket mSocket;
     {
         try {
             mSocket = IO.socket("ws://192.168.1.2:3004/");
@@ -46,10 +46,9 @@ public class SocketIOCordova extends CordovaPlugin {
     }
 
     private void connectSocket(String url, CallbackContext callbackContext) {
-        SocketIOConnection socketIO = new SocketIOConnection();
-        webSockets = this.getSocket();
+        Socket webSockets = this.getSocket();
         webSockets.connect();      
-        Log.d("URL: ", url.toString(), webSockets.toString());
+        Log.d("URL: ", webSockets.toString());
         final PluginResult result = new PluginResult(PluginResult.Status.OK, webSockets.toString());
         callbackContext.sendPluginResult(result);
         // try {
