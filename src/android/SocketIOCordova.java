@@ -56,7 +56,7 @@ public class SocketIOCordova extends CordovaPlugin {
     }
 
     private void openNewActivity(Context context) {
-        Intent intent = new Intent(context, NewActivity.class);
+        Intent intent = new Intent(context, SocketActivity.class);
         this.cordova.getActivity().startActivity(intent);
     }
 
