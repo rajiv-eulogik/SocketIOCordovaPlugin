@@ -20,7 +20,10 @@ import io.socket.client.Socket;
  * This class echoes a string called from JavaScript.
  */
 public class SocketIOCordova extends CordovaPlugin {
-    private Socket socket;
+    private Socket webSockets;
+
+    
+
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -33,19 +36,11 @@ public class SocketIOCordova extends CordovaPlugin {
     }
 
     private void connectSocket(String url, CallbackContext callbackContext) {
-        Log.d("URL: ", url.toString());
-        try {
-            socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
-            Log.d("Socket--: ", socket.toString());
-        }
-        catch(URISyntaxException e) {
-            Log.d("Socket--: ", e.toString());
-            callbackContext.error("Expecting an URI:" + e);
-        }
-        socket.connect();
-        Log.d("Socket: ", socket.toString());
-        // JSONObject obj = new JSONObject(socket.toString());
-        final PluginResult result = new PluginResult(PluginResult.Status.OK, socket.toString());
+        SocketIOConnection socketIO = new SocketIOConnection();
+        webSockets = socketIO.getSocket();
+        webSockets.connect();      
+        Log.d("URL: ", url.toString(), webSockets.toString());
+        final PluginResult result = new PluginResult(PluginResult.Status.OK, webSockets.toString());
         callbackContext.sendPluginResult(result);
         // try {
         //     if(url != null) {
