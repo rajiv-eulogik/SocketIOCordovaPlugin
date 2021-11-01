@@ -49,8 +49,7 @@ public class SocketIOCordova extends CordovaPlugin {
         Socket webSockets = this.getSocket();
         webSockets.connect();      
         Log.d("URL: ", webSockets.toString());
-        final PluginResult result = new PluginResult(PluginResult.Status.OK, webSockets.toString());
-        callbackContext.sendPluginResult(result);
+        callbackContext.success(webSockets.toString());
         // try {
         //     if(url != null) {
                 
