@@ -5,13 +5,15 @@
 		<clobbers target="cordova.plugins.SocketIOCordova" />
 	</js-module>
 	<platform name="android">
-    <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+		<source-file src="src/android/SocketIOCordova.java" target-dir="src/cordova-plugin-agora-sdk/SocketIOCordova" />
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="SocketIOCordova">
 				<param name="android-package" value="cordova.plugin.agora.sdk.SocketIOCordova" />
 			</feature>
 		</config-file>
-		<config-file parent="/*" target="AndroidManifest.xml" />
-		<source-file src="src/android/SocketIOCordova.java" target-dir="src/cordova-plugin-agora-sdk/SocketIOCordova" />
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
 	</platform>
 </plugin>
