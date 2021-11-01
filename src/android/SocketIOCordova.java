@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.net.Uri;
 import java.net.URISyntaxException;
+import android.util.Log;
 
 
 import io.socket.client.IO;
@@ -19,7 +20,8 @@ import io.socket.client.Socket;
  * This class echoes a string called from JavaScript.
  */
 public class SocketIOCordova extends CordovaPlugin {
-
+    private Socket socket;
+    
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("connectSocket")) {
