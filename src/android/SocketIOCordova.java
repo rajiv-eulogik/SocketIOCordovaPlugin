@@ -25,28 +25,28 @@ import io.socket.client.Socket;
  * This class echoes a string called from JavaScript.
  */
 public class SocketIOCordova extends CordovaPlugin {
-    private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("ws://192.168.1.2:3004/");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    // private Socket mSocket;
+    // {
+    //     try {
+    //         mSocket = IO.socket("ws://192.168.1.2:3004/");
+    //     } catch (URISyntaxException e) {
+    //         throw new RuntimeException(e);
+    //     }
+    // }
 
-    public Socket getSocket() {
-        return mSocket;
-    }
+    // public Socket getSocket() {
+    //     return mSocket;
+    // }
     
 
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-    }
+    // public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+    //     super.initialize(cordova, webView);
+    // }
 
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        Context context = cordova.getActivity().getApplicationContext();
+        // Context context = cordova.getActivity().getApplicationContext();
         if (action.equals("connectSocket")) {
             String uri = args.getString(0);
             this.connectSocket(uri, callbackContext);
@@ -61,9 +61,10 @@ public class SocketIOCordova extends CordovaPlugin {
     // }
 
     private void connectSocket(String url, CallbackContext callbackContext) {
-        Socket webSockets = this.getSocket();
-        Log.d("URL: ", webSockets.toString());
-        callbackContext.success(webSockets.toString());
+        // Socket webSockets = this.getSocket();
+        // Log.d("URL: ", webSockets.toString());
+        // callbackContext.success(webSockets.toString());
+        callbackContext.success("Hello world");
         // try {
         //     if(url != null) {
                 
