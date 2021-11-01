@@ -36,7 +36,7 @@ public class SocketIOCordova extends CordovaPlugin {
         return false;
     }
 
-    private void connectSocket(String url, CallbackContext callbackContext) {
+    private boolean connectSocket(String url, CallbackContext callbackContext) {
         try {
             if(url != null) {
                 try {
