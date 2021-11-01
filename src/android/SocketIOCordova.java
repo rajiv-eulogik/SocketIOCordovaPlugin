@@ -35,27 +35,28 @@ public class SocketIOCordova extends CordovaPlugin {
     private void connectSocket(String url, CallbackContext callbackContext) {
         Log.d("URL: ", url.toString());
         try {
-            if(url != null) {
-                try {
-                    socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
-                    Log.d("Socket--: ", socket.toString());
-                }
-                catch(URISyntaxException e) {
-                    Log.d("Socket--: ", e.toString());
-                    callbackContext.error("Expecting an URI:" + e);
-                }
-                socket.connect();
-                Log.d("Socket: ", socket.toString());
-                JSONObject obj = new JSONObject(socket.toString());
-                final PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
-                callbackContext.sendPluginResult(result);
-            }
-            else {
-                callbackContext.error("Expecting an URI");
-            }
+            socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+            Log.d("Socket--: ", socket.toString());
         }
-        catch (Exception e) {
-            callbackContext.error("Error: " + e.getMessage());
+        catch(URISyntaxException e) {
+            Log.d("Socket--: ", e.toString());
+            callbackContext.error("Expecting an URI:" + e);
         }
+        socket.connect();
+        Log.d("Socket: ", socket.toString());
+        JSONObject obj = new JSONObject(socket.toString());
+        final PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
+        callbackContext.sendPluginResult(result);
+        // try {
+        //     if(url != null) {
+                
+        //     }
+        //     else {
+        //         callbackContext.error("Expecting an URI");
+        //     }
+        // }
+        // catch (Exception e) {
+        //     callbackContext.error("Error: " + e.getMessage());
+        // }
     }
 }
