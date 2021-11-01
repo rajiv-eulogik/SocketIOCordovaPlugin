@@ -1,5 +1,8 @@
 package cordova.plugin.agora.sdk;
 
+import android.content.Context;
+import android.content.Intent;
+
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
@@ -34,9 +37,14 @@ public class SocketIOCordova extends CordovaPlugin {
     }
     
 
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+    }
+
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Context context = cordova.getActivity().getApplicationContext();
         if (action.equals("connectSocket")) {
             String uri = args.getString(0);
             this.connectSocket(uri, callbackContext);
@@ -45,9 +53,13 @@ public class SocketIOCordova extends CordovaPlugin {
         return false;
     }
 
+    private void openNewActivity(Context context) {
+        Intent intent = new Intent(context, NewActivity.class);
+        this.cordova.getActivity().startActivity(intent);
+    }
+
     private void connectSocket(String url, CallbackContext callbackContext) {
         Socket webSockets = this.getSocket();
-        webSockets.connect();      
         Log.d("URL: ", webSockets.toString());
         callbackContext.success(webSockets.toString());
         // try {
