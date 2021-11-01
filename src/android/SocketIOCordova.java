@@ -21,7 +21,17 @@ import io.socket.client.Socket;
  */
 public class SocketIOCordova extends CordovaPlugin {
     private Socket webSockets;
+    {
+        try {
+            mSocket = IO.socket("ws://192.168.1.2:3004/");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public Socket getSocket() {
+        return mSocket;
+    }
     
 
 
@@ -37,7 +47,7 @@ public class SocketIOCordova extends CordovaPlugin {
 
     private void connectSocket(String url, CallbackContext callbackContext) {
         SocketIOConnection socketIO = new SocketIOConnection();
-        webSockets = socketIO.getSocket();
+        webSockets = this.getSocket();
         webSockets.connect();      
         Log.d("URL: ", url.toString(), webSockets.toString());
         final PluginResult result = new PluginResult(PluginResult.Status.OK, webSockets.toString());
