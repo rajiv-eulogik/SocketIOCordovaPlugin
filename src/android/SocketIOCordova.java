@@ -44,8 +44,8 @@ public class SocketIOCordova extends CordovaPlugin {
         }
         socket.connect();
         Log.d("Socket: ", socket.toString());
-        JSONObject obj = new JSONObject(socket.toString());
-        final PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
+        // JSONObject obj = new JSONObject(socket.toString());
+        final PluginResult result = new PluginResult(PluginResult.Status.OK, socket.toString());
         callbackContext.sendPluginResult(result);
         // try {
         //     if(url != null) {
