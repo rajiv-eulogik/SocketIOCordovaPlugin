@@ -47,12 +47,11 @@ public class SocketIOCordova extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         // Context context = cordova.getActivity().getApplicationContext();
-        callbackContext.success("Hello world");
-        // if (action.equals("connectSocket")) {
-        //     String uri = args.getString(0);
-        //     this.connectSocket(uri, callbackContext);
-        //     return true;
-        // }
+        if (action.equals("connectSocket")) {
+            String uri = args.getString(0);
+            this.connectSocket(uri, callbackContext);
+            return true;
+        }
         return true;
     }
 
