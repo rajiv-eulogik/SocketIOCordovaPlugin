@@ -21,7 +21,7 @@ import io.socket.client.Socket;
  */
 public class SocketIOCordova extends CordovaPlugin {
     private Socket socket;
-    
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("connectSocket")) {
@@ -32,30 +32,30 @@ public class SocketIOCordova extends CordovaPlugin {
         return false;
     }
 
-    private boolean connectSocket(String url, CallbackContext callbackContext) {
+    private void connectSocket(String url, CallbackContext callbackContext) {
         Log.d("URL: ", url.toString());
         try {
             if(url != null) {
                 try {
                     socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+                    Log.d("Socket--: ", socket.toString());
                 }
                 catch(URISyntaxException e) {
+                    Log.d("Socket--: ", e.toString());
                     callbackContext.error("Expecting an URI:" + e);
                 }
                 socket.connect();
                 Log.d("Socket: ", socket.toString());
                 JSONObject obj = new JSONObject(socket.toString());
-                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, obj));
-                return true;
+                final PluginResult result = new PluginResult(PluginResult.Status.OK, obj);
+                callbackContext.sendPluginResult(result);
             }
             else {
                 callbackContext.error("Expecting an URI");
-                return false;
             }
         }
         catch (Exception e) {
             callbackContext.error("Error: " + e.getMessage());
-            return false;
         }
     }
 }
