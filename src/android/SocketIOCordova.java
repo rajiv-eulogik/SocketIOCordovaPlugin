@@ -55,10 +55,10 @@ public class SocketIOCordova extends CordovaPlugin {
         return false;
     }
 
-    private void openNewActivity(Context context) {
-        Intent intent = new Intent(context, SocketActivity.class);
-        this.cordova.getActivity().startActivity(intent);
-    }
+    // private void openNewActivity(Context context) {
+    //     Intent intent = new Intent(context, SocketActivity.class);
+    //     this.cordova.getActivity().startActivity(intent);
+    // }
 
     private void connectSocket(String url, CallbackContext callbackContext) {
         Socket webSockets = this.getSocket();
