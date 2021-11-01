@@ -38,10 +38,10 @@ public class SocketIOCordova extends CordovaPlugin {
     //     return mSocket;
     // }
     
-
-    // public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-    //     super.initialize(cordova, webView);
-    // }
+    @Override
+    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
+        super.initialize(cordova, webView);
+    }
 
 
     @Override
