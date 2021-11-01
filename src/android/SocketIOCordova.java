@@ -58,7 +58,6 @@ public class SocketIOCordova extends CordovaPlugin {
             callbackContext.error("Error: " + e.getMessage());
             return false;
         }
-        return false;
     } 
 
 
