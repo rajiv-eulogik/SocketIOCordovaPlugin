@@ -18,6 +18,8 @@ import io.socket.client.Socket;
  */
 public class SocketIOCordova extends CordovaPlugin {
 
+    private Socket socket;
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("coolMethod")) {
@@ -35,7 +37,10 @@ public class SocketIOCordova extends CordovaPlugin {
 
     private void connectSocket(String url, CallbackContext callbackContext) {
         if(url != null) {
-            Socket socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+            try {
+                socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+            }
+            catch(URISyntaxException e) {}
             socket.connect();
             callbackContext.success(socket.toString());
         }
