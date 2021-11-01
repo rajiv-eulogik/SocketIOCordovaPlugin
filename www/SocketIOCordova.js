@@ -1,6 +1,6 @@
 var exec = require('cordova/exec');
 
-module.exports = {
+var SocketIOCordova = {
     connectSocket: function(uri) {
         exec(success, error, "SocketIOCordova", "connectSocket", [uri]);
     },
@@ -8,3 +8,5 @@ module.exports = {
         exec(success, error, 'SocketIOCordova', 'coolMethod', [arg0]);
     }
 };
+
+module.exports = SocketIOCordova;
