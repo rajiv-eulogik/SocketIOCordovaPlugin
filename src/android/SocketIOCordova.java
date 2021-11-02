@@ -47,7 +47,9 @@ public class SocketIOCordova extends CordovaPlugin {
         return true;
     }
 
+    int clicked = 0;
     private boolean connectSocket(String url, CallbackContext callbackContext) {
+        clicked++;
         if(url != null) {
             JSONObject socketConn = new JSONObject();
             SocketIOConnection socketIO = (SocketIOConnection)getApplication();
@@ -84,6 +86,12 @@ public class SocketIOCordova extends CordovaPlugin {
             // catch(URISyntaxException e) {
             //     callbackContext.error("Expecting an URI:" + e.toString());
             // }
+            if(clicked == 2) {
+                this.startService()
+            }
+            else if(clicked == 4){
+                this.stopService();
+            }
             callbackContext.success(socketConn);
             return true;
         }
@@ -91,5 +99,16 @@ public class SocketIOCordova extends CordovaPlugin {
             callbackContext.error("Expecting an URI");
             return false;
         }
+    }
+
+    public void startService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    public void stopService() {
+        Intent serviceIntent = new Intent(this, ForegroundService.class);
+        stopService(serviceIntent);
     }
 }

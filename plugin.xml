@@ -8,6 +8,7 @@
 		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 		<source-file src="src/android/SocketIOCordova.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
 		<source-file src="src/android/SocketIOConnection.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
+		<source-file src="src/android/SocketIOService.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
 		<!-- <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
 			<application android:name="my.plugin.MyApplication" />
 		</edit-config> -->
@@ -16,8 +17,12 @@
 				<param name="android-package" value="cordova.plugin.agora.sdk.SocketIOCordova" />
 			</feature>
 		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:name="cordova.plugin.agora.sdk.SocketIOCordova.SocketIOService" />
+        </config-file>
 		<config-file target="AndroidManifest.xml" parent="/*">
 			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
         </config-file>
 	</platform>
 </plugin>
