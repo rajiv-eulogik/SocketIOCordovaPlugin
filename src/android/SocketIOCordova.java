@@ -3,6 +3,7 @@ package cordova.plugin.agora.sdk;
 
 import android.content.Context;
 import android.content.Intent;
+import android.app.Activity;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
@@ -32,28 +33,43 @@ public class SocketIOCordova extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
+        try {
+            socket = IO.socket("http://192.168.1.2:3004");
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        socket.connect();
     }
+
+
+    // public void socketEventsInit() {
+    //     socket.on("androidDevice", emitterFn);
+    // }
 
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        // Context context = cordova.getActivity().getApplicationContext();
+        Activity activity = cordova.getActivity();
+        Intent intent = new Intent(activity, SocketIOConnection.class);
         if (action.equals("connectSocket")) {
             String uri = args.getString(0);
             Log.d("URL----: ", uri);
-            this.connectSocket(uri, callbackContext);
+            this.connectSocket(uri, callbackContext, activity, intent);
             return true;
+        }
+        else if(action.equals("socketOnEv")) {
+            String ev = args.getString(0);
+            this.socketOnEv(ev, callbackContext);
+            return true
         }
         return true;
     }
 
     int clicked = 0;
-    private boolean connectSocket(String url, CallbackContext callbackContext) {
+    private boolean connectSocket(String url, CallbackContext callbackContext, Activity activity, Intent intent) {
         clicked++;
         if(url != null) {
             JSONObject socketConn = new JSONObject();
-            SocketIOConnection socketIO = (SocketIOConnection)getApplication();
-            socket = socketIO.getSocket();
             try {
                 socketConn.put("socketId", socket.id());
                 socketConn.put("socket", socket);
@@ -63,34 +79,11 @@ public class SocketIOCordova extends CordovaPlugin {
             catch (JSONException e) {
                 callbackContext.error("ERROR IOException " + e.toString());
             }
-            // try {
-            //     socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
-            //     socket.connect();
-            //     try {
-            //         socketConn.put("socketId", socket.id());
-            //         socketConn.put("socket", socket);
-            //         socketConn.put("status", socket.connected());
-            //         socketConn.put("active", socket.isActive());
-            //     }
-            //     catch (JSONException e) {
-            //         callbackContext.error("ERROR IOException " + e.toString());
-            //     }
-                // socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-                //     @Override
-                //     public void call(Object... args) {
-                //         System.out.println(socket.connected()); // true
-                //     }
-                // });
-                // callbackContext.success(socketConn);
-            // }
-            // catch(URISyntaxException e) {
-            //     callbackContext.error("Expecting an URI:" + e.toString());
-            // }
             if(clicked == 2) {
-                this.startService()
+                this.startService(activity, intent);
             }
             else if(clicked == 4){
-                this.stopService();
+                this.stopService(activity, intent);
             }
             callbackContext.success(socketConn);
             return true;
@@ -101,14 +94,38 @@ public class SocketIOCordova extends CordovaPlugin {
         }
     }
 
-    public void startService() {
-        Intent serviceIntent = new Intent(this, ForegroundService.class);
-        serviceIntent.putExtra("inputExtra", "Foreground Service Example in Android");
-        ContextCompat.startForegroundService(this, serviceIntent);
+    private Emitter.Listener emitterFn = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            JSONObject data = (JSONObject) args[0]; //GET THE PARAMS
+        }
+    };
+
+    private boolean socketOnEv(String eventName, CallbackContext callbackContext) {
+        if(eventName != null) {
+            socket.on(eventName, new Emitter.Listener() {
+                @Override
+                void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+        }
+        else {
+            callbackContext.error("Expecting an EventName");
+        }
     }
 
-    public void stopService() {
-        Intent serviceIntent = new Intent(this, ForegroundService.class);
-        stopService(serviceIntent);
+    public void startService(Activity activity, Intent intent) {
+        intent.setAction("start");
+        activity.getApplicationContext().startForegroundService(intent);
+    }
+
+    public void stopService(Activity activity, Intent intent) {
+        intent.setAction("stop");
+        // Stop the service
+        activity.getApplicationContext().startService(intent);
     }
 }
