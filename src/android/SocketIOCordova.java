@@ -79,7 +79,7 @@ public class SocketIOCordova extends CordovaPlugin {
                 //         System.out.println(socket.connected()); // true
                 //     }
                 // });
-                callback÷Context.success(socketConn);
+                // callbackContext.success(socketConn);
             // }
             // catch(URISyntaxException e) {
             //     callbackContext.error("Expecting an URI:" + e.toString());

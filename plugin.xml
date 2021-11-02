@@ -7,7 +7,7 @@
 	<platform name="android">
 		<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 		<source-file src="src/android/SocketIOCordova.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
-		<source-file src="src/android/SocketConnection.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
+		<source-file src="src/android/SocketIOConnection.java" target-dir="src/cordova/plugin/agora/sdk/SocketIOCordova" />
 		<!-- <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
 			<application android:name="my.plugin.MyApplication" />
 		</edit-config> -->
