@@ -52,10 +52,15 @@ public class SocketIOCordova extends CordovaPlugin {
             JSONObject socketConn = new JSONObject();
             SocketIOConnection socketIO = (SocketIOConnection)getApplication();
             socket = socketIO.getSocket();
-            socketConn.put("socketId", socket.id());
-            socketConn.put("socket", socket);
-            socketConn.put("status", socket.connected());
-            socketConn.put("active", socket.isActive());
+            try {
+                socketConn.put("socketId", socket.id());
+                socketConn.put("socket", socket);
+                socketConn.put("status", socket.connected());
+                socketConn.put("active", socket.isActive());
+            }
+            catch (JSONException e) {
+                callbackContext.error("ERROR IOException " + e.toString());
+            }
             // try {
             //     socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
             //     socket.connect();
@@ -74,11 +79,12 @@ public class SocketIOCordova extends CordovaPlugin {
                 //         System.out.println(socket.connected()); // true
                 //     }
                 // });
-                callbackContext.success(socketConn);
-            }
-            catch(URISyntaxException e) {
-                callbackContext.error("Expecting an URI:" + e.toString());
-            }
+                callback÷Context.success(socketConn);
+            // }
+            // catch(URISyntaxException e) {
+            //     callbackContext.error("Expecting an URI:" + e.toString());
+            // }
+            callbackContext.success(socketConn);
             return true;
         }
         else {
