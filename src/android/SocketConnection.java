@@ -9,7 +9,10 @@ import java.net.URISyntaxException;
 public class SocketIOConnection extends Application {
 
     private Socket mSocket;
-    {
+   
+    @Override
+    public void onCreate() {
+        super.onCreate();
         try {
             mSocket = IO.socket("http://192.168.1.2:3004");
         } catch (URISyntaxException e) {

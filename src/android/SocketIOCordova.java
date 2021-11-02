@@ -1,3 +1,4 @@
+
 package cordova.plugin.agora.sdk;
 
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.util.Log;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import io.socket.emitter.Emitter;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -27,7 +29,6 @@ import io.socket.client.Socket;
 public class SocketIOCordova extends CordovaPlugin {
     private Socket socket;
 
-   
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
@@ -46,21 +47,38 @@ public class SocketIOCordova extends CordovaPlugin {
         return true;
     }
 
-    // private void openNewActivity(Context context) {
-    //     Intent intent = new Intent(context, SocketActivity.class);
-    //     this.cordova.getActivity().startActivity(intent);
-    // }
-
-    private void connectSocket(String url, CallbackContext callbackContext) {
+    private boolean connectSocket(String url, CallbackContext callbackContext) {
         if(url != null) {
-            try {
-                socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+            JSONObject socketConn = new JSONObject();
+            SocketIOConnection socketIO = (SocketIOConnection)getApplication();
+            socket = socketIO.getSocket();
+            socketConn.put("socketId", socket.id());
+            socketConn.put("socket", socket);
+            socketConn.put("status", socket.connected());
+            socketConn.put("active", socket.isActive());
+            // try {
+            //     socket = IO.socket(url); //CONNECTION MADE TO SOCKET SERVER
+            //     socket.connect();
+            //     try {
+            //         socketConn.put("socketId", socket.id());
+            //         socketConn.put("socket", socket);
+            //         socketConn.put("status", socket.connected());
+            //         socketConn.put("active", socket.isActive());
+            //     }
+            //     catch (JSONException e) {
+            //         callbackContext.error("ERROR IOException " + e.toString());
+            //     }
+                // socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
+                //     @Override
+                //     public void call(Object... args) {
+                //         System.out.println(socket.connected()); // true
+                //     }
+                // });
+                callbackContext.success(socketConn);
             }
             catch(URISyntaxException e) {
-                callbackContext.error("Expecting an URI:" + e);
+                callbackContext.error("Expecting an URI:" + e.toString());
             }
-            socket.connect();
-            callbackContext.success(socket.toString());
             return true;
         }
         else {
