@@ -146,7 +146,7 @@ var SocketIOCordova = {
     },
 
     removeEvent: function(event, success, error) {
-        exec(success, error, "SocketIOCordova", "removeEvent", [params]);
+        exec(success, error, "SocketIOCordova", "removeEvent", [event]);
     },
 
     removeAllEvents: function(success, error) {
