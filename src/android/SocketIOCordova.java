@@ -24,6 +24,9 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import android.os.Bundle;  
+import android.widget.Toast;  
+
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -34,7 +37,7 @@ public class SocketIOCordova extends CordovaPlugin {
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
         try {
-            socket = IO.socket("http://192.168.1.2:3004");
+            socket = IO.socket("http://ec2-3-145-16-78.us-east-2.compute.amazonaws.com:3004");
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -53,14 +56,329 @@ public class SocketIOCordova extends CordovaPlugin {
         Intent intent = new Intent(activity, SocketIOConnection.class);
         if (action.equals("connectSocket")) {
             String uri = args.getString(0);
-            Log.d("URL----: ", uri);
+            Log.i("URL----: ", uri);
             this.connectSocket(uri, callbackContext, activity, intent);
             return true;
         }
-        else if(action.equals("socketOnEv")) {
+        else if(action.equals("check")) {
             String ev = args.getString(0);
-            this.socketOnEv(ev, callbackContext);
-            return true
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("disconnect")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("recieveMessage")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("dataAftergiftChat")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("messageStart")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("chatEnd")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveScheduled")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveUserJoin")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveCallConnected")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveAppCrash")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveFollowedReceive")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("receivedLiveId")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveCallRequest")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("liveCallEndedByUser")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("giftData")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("dataAftergiftcall")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("callEnded")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+        else if(action.equals("appKilledUser")) {
+            String ev = args.getString(0);
+            socket.on(ev, new Emitter.Listener() {
+                @Override
+                public void call(final Object... args) {
+                    JSONObject data = (JSONObject) args[0];
+                    PluginResult result = new PluginResult(PluginResult.Status.OK, data);
+                    result.setKeepCallback(true);
+                    callbackContext.sendPluginResult(result);
+                }
+            });
+            return true;
+        }
+
+        else if(action.equals("connection")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("connection", emitBody)
+            return true;
+        }
+        else if(action.equals("resumeOnline")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("resumeOnline", emitBody)
+            return true;
+        }
+        else if(action.equals("changeIsOnline")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("changeIsOnline", emitBody)
+            return true;
+        }
+        else if(action.equals("messagePicked")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("message pick", emitBody)
+            return true;
+        }
+        else if(action.equals("sendAttachmentMessage")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("sendAttachmentMessage", emitBody)
+            return true;
+        }
+        else if(action.equals("chatAstroLeave")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("chatAstroLeave", emitBody)
+            return true;
+        }
+        else if(action.equals("sendMessage")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("sendMessage", emitBody)
+            return true;
+        }
+        else if(action.equals("chatLeave")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("chatLeave", emitBody)
+            return true;
+        }
+        else if(action.equals("liveChatData")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("liveChatData", emitBody)
+            return true;
+        }
+        else if(action.equals("liveCallReceived")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("liveCallReceived", emitBody)
+            return true;
+        }
+        else if(action.equals("liveCallEnded")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("liveCallEnded", emitBody)
+            return true;
+        }
+        else if(action.equals("disconnected")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("disconnected", emitBody)
+            return true;
+        }
+        else if(action.equals("userJoin")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("userJoin", emitBody)
+            return true;
+        }
+        else if(action.equals("startLive")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("startLive", emitBody)
+            return true;
+        }
+        else if(action.equals("callLeave")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("call leave", emitBody)
+            return true;
+        }
+        else if(action.equals("callPicked")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("call picked", emitBody)
+            return true;
+        }
+        else if(action.equals("callPick")) {
+            JSONObject emitBody = (JSONObject) args[0];
+            socket.emit("call pick", emitBody)
+            return true;
         }
         return true;
     }
@@ -79,12 +397,7 @@ public class SocketIOCordova extends CordovaPlugin {
             catch (JSONException e) {
                 callbackContext.error("ERROR IOException " + e.toString());
             }
-            if(clicked == 2) {
-                this.startService(activity, intent);
-            }
-            else if(clicked == 4){
-                this.stopService(activity, intent);
-            }
+            this.startService(activity, intent);
             callbackContext.success(socketConn);
             return true;
         }
@@ -104,17 +417,20 @@ public class SocketIOCordova extends CordovaPlugin {
     private boolean socketOnEv(String eventName, CallbackContext callbackContext) {
         if(eventName != null) {
             socket.on(eventName, new Emitter.Listener() {
+                // Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
                 @Override
-                void call(final Object... args) {
+                public void call(final Object... args) {
                     JSONObject data = (JSONObject) args[0];
                     PluginResult result = new PluginResult(PluginResult.Status.OK, data);
                     result.setKeepCallback(true);
                     callbackContext.sendPluginResult(result);
                 }
             });
+            return true;
         }
         else {
             callbackContext.error("Expecting an EventName");
+            return false;
         }
     }
 
