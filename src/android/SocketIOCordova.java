@@ -374,6 +374,15 @@ public class SocketIOCordova extends CordovaPlugin {
             socket.emit("call pick", emitBody)
             return true;
         }
+        else if(action.equals("removeEvent")) {
+            String ev = args.getString(0);
+            socket.off(ev);
+            return true;
+        }
+        else if(action.equals("removeAllEvents")) {
+            socket.off();
+            return true;
+        }
         return true;
     }
 

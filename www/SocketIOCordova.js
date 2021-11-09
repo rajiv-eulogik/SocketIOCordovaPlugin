@@ -144,6 +144,14 @@ var SocketIOCordova = {
     callPick: function(params, success, error) {
         exec(success, error, "SocketIOCordova", "callPick", [params]);
     },
+
+    removeEvent: function(event, success, error) {
+        exec(success, error, "SocketIOCordova", "removeEvent", [params]);
+    },
+
+    removeAllEvents: function(success, error) {
+        exec(success, error, "SocketIOCordova", "removeAllEvents", []);
+    }
     
 };
 
