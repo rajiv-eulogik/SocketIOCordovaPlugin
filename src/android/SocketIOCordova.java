@@ -36,12 +36,6 @@ public class SocketIOCordova extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        try {
-            socket = IO.socket("http://ec2-3-145-16-78.us-east-2.compute.amazonaws.com:3004");
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        socket.connect();
     }
 
 
@@ -387,6 +381,12 @@ public class SocketIOCordova extends CordovaPlugin {
     private boolean connectSocket(String url, CallbackContext callbackContext, Activity activity, Intent intent) {
         clicked++;
         if(url != null) {
+            try {
+                socket = IO.socket(url);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+            socket.connect();
             JSONObject socketConn = new JSONObject();
             try {
                 socketConn.put("socketId", socket.id());
