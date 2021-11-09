@@ -290,87 +290,87 @@ public class SocketIOCordova extends CordovaPlugin {
         }
 
         else if(action.equals("connection")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("connection", emitBody);
             return true;
         }
         else if(action.equals("resumeOnline")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("resumeOnline", emitBody);
             return true;
         }
         else if(action.equals("changeIsOnline")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("changeIsOnline", emitBody);
             return true;
         }
         else if(action.equals("messagePicked")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("message pick", emitBody);
             return true;
         }
         else if(action.equals("sendAttachmentMessage")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("sendAttachmentMessage", emitBody);
             return true;
         }
         else if(action.equals("chatAstroLeave")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("chatAstroLeave", emitBody);
             return true;
         }
         else if(action.equals("sendMessage")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("sendMessage", emitBody);
             return true;
         }
         else if(action.equals("chatLeave")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("chatLeave", emitBody);
             return true;
         }
         else if(action.equals("liveChatData")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("liveChatData", emitBody);
             return true;
         }
         else if(action.equals("liveCallReceived")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("liveCallReceived", emitBody);
             return true;
         }
         else if(action.equals("liveCallEnded")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("liveCallEnded", emitBody);
             return true;
         }
         else if(action.equals("disconnected")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("disconnected", emitBody);
             return true;
         }
         else if(action.equals("userJoin")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("userJoin", emitBody);
             return true;
         }
         else if(action.equals("startLive")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("startLive", emitBody);
             return true;
         }
         else if(action.equals("callLeave")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("call leave", emitBody);
             return true;
         }
         else if(action.equals("callPicked")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("call picked", emitBody);
             return true;
         }
         else if(action.equals("callPick")) {
-            JSONObject emitBody = (JSONObject) args[0];
+            JSONObject emitBody = args.getJSONObject(0);
             socket.emit("call pick", emitBody);
             return true;
         }
