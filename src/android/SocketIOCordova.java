@@ -32,10 +32,16 @@ import android.widget.Toast;
  */
 public class SocketIOCordova extends CordovaPlugin {
     private Socket socket;
-
+    
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
+        try {
+            socket = IO.socket("http://ec2-3-141-165-191.us-east-2.compute.amazonaws.com:3004/");
+            socket.connect();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -390,12 +396,7 @@ public class SocketIOCordova extends CordovaPlugin {
     private boolean connectSocket(String url, CallbackContext callbackContext, Activity activity, Intent intent) {
         clicked++;
         if(url != null) {
-            try {
-                socket = IO.socket(url);
-            } catch (URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-            socket.connect();
+            
             JSONObject socketConn = new JSONObject();
             try {
                 socketConn.put("socketId", socket.id());
